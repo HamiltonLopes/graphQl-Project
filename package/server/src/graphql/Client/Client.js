@@ -67,7 +67,7 @@ export const resolvers = {
             const { take = 10, skip = 0, sort, filter } = args.options || [];
             const clients = await createRepository('client').read();
 
-            if (sort && !(sort === undefined)) {
+            if (sort && !(this.sort === undefined)) {
                 clients.sort((clientA, clientB) => {
                     if (!['name', 'email', 'disabled'].includes(sort.sorter)) {
                         throw new Error(`Cannot sort by field ${sort.sorter}.`)
@@ -214,10 +214,7 @@ export const resolvers = {
 
             if (!deletedClient) throw new Error(`There's no client with ${id} id`);
 
-            const updatedClients = [];
-            clients.map((client) => {
-                if (!(client.id === id)) updatedClients.push(client);
-            });
+            const updatedClients = clients.filter((client) => client.id !== id);
 
             await createRepository('client').write(updatedClients);
 
