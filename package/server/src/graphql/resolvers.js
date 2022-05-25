@@ -16,7 +16,8 @@ const resolvers = {
 
     Mutation: {
         ...clientResolvers.Mutation
-    }
+    },
+
 }
 
 export default resolvers;

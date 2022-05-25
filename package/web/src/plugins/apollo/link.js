@@ -1,21 +1,24 @@
 import { ApolloLink, Observable } from 'apollo-link';
-import {createHttpLink} from 'apollo-link-http';
+import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 
-const loggerLink = new ApolloLink((operation, foward) => new Observable(observer =>{
-    foward(operation).subscribe({
-        next: result =>{
-            console.log('Log', result);
-            observer.next(result);
-        },
+const loggerLink = new ApolloLink((operation, foward) => 
+    new Observable(observer => {
+        const subscription = foward(operation).subscribe({
+            next: result => {
+                console.log('Log', result);
+                observer.next(result);
+            },
 
-        error: observer.error.bind(observer),
+            error: observer.error.bind(observer),
 
-        complete: observer.complete.bind(observer),
-    });
+            complete: observer.complete.bind(observer),
+        });
 
-}))
+        return () => subscription.unsubscribe();
+    }
+));
 
 
 
@@ -26,7 +29,7 @@ const link = ApolloLink.from([
         console.error('Error GraphQl', error);
     }),
 
-    setContext((_, {headers}) => {
+    setContext((_, { headers }) => {
         return {
             headers,
         };
@@ -34,7 +37,7 @@ const link = ApolloLink.from([
 
     createHttpLink({
         uri: 'http://127.0.0.1:8000/graphql',
-    })
+    }),
 ]);
 
 export default link;

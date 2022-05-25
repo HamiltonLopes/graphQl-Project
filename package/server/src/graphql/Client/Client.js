@@ -66,8 +66,7 @@ export const resolvers = {
         allClients: async (_, args) => {
             const { take = 10, skip = 0, sort, filter } = args.options || [];
             const clients = await createRepository('client').read();
-
-            if (sort && !(this.sort === undefined)) {
+            if (sort && !(sort === undefined)) {
                 clients.sort((clientA, clientB) => {
                     if (!['name', 'email', 'disabled'].includes(sort.sorter)) {
                         throw new Error(`Cannot sort by field ${sort.sorter}.`)
