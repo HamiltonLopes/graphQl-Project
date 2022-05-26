@@ -1,5 +1,8 @@
 import { gql } from 'graphql-tag';
 import { useQuery } from 'react-apollo';
+import ClientEdit from './ClientEdit';
+import { useState } from 'react';
+
 
 
 const GET_CLIENT_LIST = gql`
@@ -20,7 +23,8 @@ const GET_CLIENT_LIST = gql`
 
 var page = 0;
 // var moviment = '';
-export function ClientList( {onSelectClient} ) {
+export function ClientList({ onSelectClient }) {
+    const [components, setComponents] = useState([]);
     const ITEMS_PER_VIEW = 15;
     const GO_TO_NEXT_PAGE = 'next';
     const GO_TO_PREV_PAGE = 'prev';
@@ -37,8 +41,9 @@ export function ClientList( {onSelectClient} ) {
     }
 
     const { data, error, loading, fetchMore } = useQuery(
-        GET_CLIENT_LIST, 
-        {fetchPolicy: 'cache-and-network',
+        GET_CLIENT_LIST,
+        {
+            fetchPolicy: 'cache-and-network',
             variables: {
                 options: {
                     take: ITEMS_PER_VIEW,
@@ -59,6 +64,10 @@ export function ClientList( {onSelectClient} ) {
     const clients = data?.allClients.items ?? [];
 
     const handleSelectClient = (client) => () => onSelectClient?.(client.id);
+
+    const handleEdit = (id) => { //quando clica ele cria um elemento do client edit e adiciona no vetor
+        setComponents([<ClientEdit clientId={id} setComponents={setComponents} />]) //passamos o vetor para client edit para que ele possa zera-lo posteriormente
+    };
 
     const handleLoadMore = (moviment) => {
         if ((moviment === GO_TO_PREV_PAGE && page > 0) ||
@@ -98,7 +107,7 @@ export function ClientList( {onSelectClient} ) {
         <section>
             <ul>
                 {
-                    clients.map((client) => (
+                    clients.map((client, i) => (
                         <li key={client.id} onClick={handleSelectClient(client)}>
                             <p>
                                 {client.name}
@@ -106,6 +115,15 @@ export function ClientList( {onSelectClient} ) {
                             <p>
                                 {client.email}
                             </p>
+                            <button type={'button'} onClick={function (event) {
+                                event.preventDefault();
+                                handleEdit(client.id);
+                            }}>edit</button>
+                            {
+                                components.map((comp) => ( //renderiza o componente do vetor, somente o com id igual ao do cliente da lista acima
+                                    <div key={i}>{comp.props.clientId === client.id ? comp : ""}</div>
+                                ))
+                            }
                         </li>
                     ))
                 }

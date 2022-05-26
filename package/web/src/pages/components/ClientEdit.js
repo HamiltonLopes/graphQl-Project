@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "react-apollo";
 import gql from 'graphql-tag';
+import ReactDOM from 'react-dom';
 import {useMemo, useState, useEffect} from 'react';
 
 const CLIENT = gql`
@@ -26,7 +27,7 @@ const UPDATE_CLIENT = gql`
     }
 `;
 
-export default function ClientEdit( {clientId} ){
+export default function ClientEdit( {clientId , setComponents}  ){
     const { data } = useQuery(CLIENT, {
         variables:{
             clientId,
@@ -79,6 +80,9 @@ export default function ClientEdit( {clientId} ){
                 email: values.email,
             }
         }).then(console.log);
+
+        if(setComponents) //se este componente for chamado em um vetor, ele zera o vetor
+            setComponents([]);
     };
 
     return (
