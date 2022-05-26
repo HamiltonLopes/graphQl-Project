@@ -14,7 +14,7 @@ export const typeDefs = gql`
     type ClientList implements List {
         items: [Client!]!
         totalItems: Int!
-        showing: String!
+        totalLength: Int!
     }
 
     input ClientListFilter{
@@ -113,7 +113,7 @@ export const resolvers = {
             return {
                 items: filteredClients.slice(skip, skip + take),
                 totalItems: filteredClients.slice(skip, skip + take).length,
-                showing: `${filteredClients.slice(skip, skip + take).length} from ${filteredClients.length}`
+                totalLength: clients.length,
             };
         }
     },

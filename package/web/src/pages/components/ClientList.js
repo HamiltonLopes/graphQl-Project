@@ -10,7 +10,7 @@ const GET_CLIENT_LIST = gql`
                 name
                 email
             }
-            showing
+            totalLength
             totalItems
         }
     }
@@ -18,34 +18,80 @@ const GET_CLIENT_LIST = gql`
 
 
 
+var page = 0;
+// var moviment = '';
+export function ClientList( {onSelectClient} ) {
+    const ITEMS_PER_VIEW = 15;
+    const GO_TO_NEXT_PAGE = 'next';
+    const GO_TO_PREV_PAGE = 'prev';
+    let SORTER = 'name';
+    let SORTMENT = 'ASC';
 
-export function ClientList() {
+    const nextPage = (skip) => {
+        if (skip < ITEMS_PER_VIEW) skip = ITEMS_PER_VIEW;
+        return page += (skip / ITEMS_PER_VIEW);
+    }
+    const prevPage = (prev) => {
+        if (prev < ITEMS_PER_VIEW) prev = ITEMS_PER_VIEW;
+        return page -= (prev / ITEMS_PER_VIEW)
+    }
 
-    const {
-        data,
-        error,
-        loading,
-    } = useQuery(GET_CLIENT_LIST, {
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            options: {
-                take: 101,
-                skip: 0,
-                sort: {
-                    sorter: "name",
-                    sortment: "ASC"
-                },
-                filter: {
-                    name: "%mi%"
+    const { data, error, loading, fetchMore } = useQuery(
+        GET_CLIENT_LIST, 
+        {fetchPolicy: 'cache-and-network',
+            variables: {
+                options: {
+                    take: ITEMS_PER_VIEW,
+                    // skip: nextPage(10),
+                    sort: {
+                        sorter: SORTER,
+                        sortment: SORTMENT
+                    },
+                    filter: {
+                        name: "%%"
+                    }
                 }
             }
         }
-    });
+    );
 
-    console.log(data);
+    console.log(data, page + 1);
     const clients = data?.allClients.items ?? [];
-    if (error) return <section><strong>Erro ao bsucar os clients</strong></section>
-    if (loading) return <section><strong>Carregando</strong></section>
+
+    const handleSelectClient = (client) => () => onSelectClient?.(client.id);
+
+    const handleLoadMore = (moviment) => {
+        if ((moviment === GO_TO_PREV_PAGE && page > 0) ||
+            (moviment === GO_TO_NEXT_PAGE && ((page + 1) * ITEMS_PER_VIEW) < data.allClients.totalLength))
+            fetchMore({
+                variables: {
+                    options: {
+                        skip: moviment === GO_TO_PREV_PAGE ? prevPage(data.allClients.items.length) * ITEMS_PER_VIEW :
+                            nextPage(data.allClients.items.length) * ITEMS_PER_VIEW,
+                        take: ITEMS_PER_VIEW,
+                        sort: {
+                            sorter: SORTER,
+                            sortment: SORTMENT
+                        }
+                    }
+                },
+                updateQuery: (result, { fetchMoreResult }) => {
+                    if (!fetchMoreResult) return result;
+                    return fetchMoreResult;
+                }
+            });
+    }
+
+    if (error)
+        return <section>
+            <strong>Erro ao bsucar os clients</strong>
+        </section>
+
+    if (loading && !data)
+        return <section>
+            <strong>Carregando</strong>
+        </section>
+
 
 
     return (
@@ -53,7 +99,7 @@ export function ClientList() {
             <ul>
                 {
                     clients.map((client) => (
-                        <li key={client.id}>
+                        <li key={client.id} onClick={handleSelectClient(client)}>
                             <p>
                                 {client.name}
                             </p>
@@ -63,7 +109,19 @@ export function ClientList() {
                         </li>
                     ))
                 }
-                <p>{data.allClients.showing}</p>
+                <p>{`${data.allClients.totalItems} from ${data.allClients.totalLength}`}</p>
+                <p>{`Page ${page + 1}`}</p>
+
+                <button type={'button'} onClick={function (event) {
+                    event.preventDefault();
+                    handleLoadMore('prev');
+                }}> Anterior </button>
+
+                <button type={'button'} onClick={function (event) {
+                    event.preventDefault();
+                    handleLoadMore('next');
+                }}> Próximo </button>
+
             </ul>
         </section>
     );
