@@ -8,6 +8,7 @@ export const typeDefs = gql`
         id: ID!
         name: String!
         email: String!
+        password: String
         disabled: Boolean!
     }
 
@@ -33,6 +34,7 @@ export const typeDefs = gql`
     input CreateClientInput{
         name: String!
         email: String!
+        password: String
     }
 
     input UpdateClientInput{
@@ -64,9 +66,9 @@ export const resolvers = {
         },
 
         allClients: async (_, args) => {
-            const { take = 10, skip = 0, sort, filter } = args.options || [];
+            const { take = 10, skip = 0, sort = undefined, filter = undefined } = args.options || [];
             const clients = await createRepository('client').read();
-            if (sort && !(sort === undefined)) {
+            if (sort && !(sort === undefined) && !(args.options === undefined)) {
                 clients.sort((clientA, clientB) => {
                     if (!['name', 'email', 'disabled'].includes(sort.sorter)) {
                         throw new Error(`Cannot sort by field ${sort.sorter}.`)
@@ -90,8 +92,9 @@ export const resolvers = {
             }
 
             const filteredClients = clients.filter((client) => {
-                if (!filter || !filter.name || filter.name.length === 0 || filter === {})
+                if (!filter || !filter.name || filter.name.length === 0 || filter === {} || args.options === undefined)
                     return true;
+                
 
                 return Object.entries(filter).every(([field, value]) => {
                     if (client[field] === null || client[field] === undefined)
@@ -120,13 +123,14 @@ export const resolvers = {
 
     Mutation: {
         createClient: async (_, args) => {
-            const { name, email } = args.input;
+            const { name, email, password } = args.input;
             const clients = await createRepository('client').read();
 
             const client = {
                 id: uuid.v4(),
                 name,
                 email,
+                password,
                 disabled: false,
             }
 
@@ -136,7 +140,7 @@ export const resolvers = {
         },
 
         updateClient: async (_, args) => {
-            const { id, name, email } = args.input;
+            const { id, name, email} = args.input;
             const clients = await createRepository('client').read();
 
             const currentClient = clients.find((client) => client.id === id);
