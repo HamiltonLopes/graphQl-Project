@@ -10,7 +10,20 @@ const CLIENT = gql`
             email
         }
     }
+`;
 
+const UPDATE_CLIENT = gql`
+    mutation UPDATE_CLIENT($id: ID!, $name: String!, $email: String!){
+        updateClient(input: {
+            id: $id,
+            name: $name,
+            email: $email,
+        }){
+            id
+            name
+            email
+        }
+    }
 `;
 
 export default function ClientEdit( {clientId} ){
@@ -19,7 +32,9 @@ export default function ClientEdit( {clientId} ){
             clientId,
         },
         skip: !clientId,
+        fetchPolicy: "cache-first",
     });
+    const [ updateClient ] = useMutation(UPDATE_CLIENT);
 
     const initialValues = useMemo(
         () => ({
@@ -54,8 +69,20 @@ export default function ClientEdit( {clientId} ){
         }));
     };
 
+    const handleSubmite = event => {
+        event.preventDefault();
+
+        updateClient({
+            variables:{
+                id: clientId,
+                name: values.name,
+                email: values.email,
+            }
+        }).then(console.log);
+    };
+
     return (
-        <form>
+        <form onSubmit={handleSubmite}>
             <input type="text" value={values.name} onChange={handleNameChange} />
             <input type="text" value={values.email} onChange={handleEmailChange}/>
             <button type="submit">Salvar</button>
