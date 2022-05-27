@@ -1,12 +1,24 @@
+.teste{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
 .classLogInform {
-    width: 30%;
+    display: block;
+    width: fit-content;
     padding: 2rem;
-    margin-inline: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    margin: 0;
     box-shadow: 1px 1px 11px 12px rgba(0, 0, 0, 0.08);
     border-radius: .6rem;
   }
+
+.classLoginPassLabel{
+  margin-top: 1rem;
+}
+
+.classLoginButton{
+  margin-top: 1rem;
+}
