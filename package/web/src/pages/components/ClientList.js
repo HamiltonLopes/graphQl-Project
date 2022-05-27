@@ -23,9 +23,9 @@ const GET_CLIENT_LIST = gql`
 
 var page = 0;
 // var moviment = '';
-export function ClientList({ onSelectClient }) {
+export default function ClientList({ onSelectClient }) {
     const [components, setComponents] = useState([]);
-    const ITEMS_PER_VIEW = 15;
+    const ITEMS_PER_VIEW = 10;
     const GO_TO_NEXT_PAGE = 'next';
     const GO_TO_PREV_PAGE = 'prev';
     let SORTER = 'name';
@@ -115,8 +115,7 @@ export function ClientList({ onSelectClient }) {
                             <p>
                                 {client.email}
                             </p>
-                            <button type={'button'} onClick={function (event) {
-                                event.preventDefault();
+                            <button type={'button'} onClick={(e)=>{e.preventDefault();
                                 handleEdit(client.id);
                             }}>edit</button>
                             {
@@ -127,16 +126,14 @@ export function ClientList({ onSelectClient }) {
                         </li>
                     ))
                 }
-                <p>{`${data.allClients.totalItems} from ${data.allClients.totalLength}`}</p>
+                <p>{`${(page*ITEMS_PER_VIEW)+1}-${(page*ITEMS_PER_VIEW)+data.allClients.totalItems} from ${data.allClients.totalLength}`}</p>
                 <p>{`Page ${page + 1}`}</p>
 
-                <button type={'button'} onClick={function (event) {
-                    event.preventDefault();
+                <button type={'button'} onClick={(e)=>{e.preventDefault();
                     handleLoadMore('prev');
                 }}> Anterior </button>
 
-                <button type={'button'} onClick={function (event) {
-                    event.preventDefault();
+                <button type={'button'} onClick={(e)=>{e.preventDefault();
                     handleLoadMore('next');
                 }}> Próximo </button>
 

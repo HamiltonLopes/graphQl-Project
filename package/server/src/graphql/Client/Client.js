@@ -45,6 +45,7 @@ export const typeDefs = gql`
 
     extend type Query{
         findByID(id: ID!): Client
+        findByEmail(email: String!): Client
         allClients(options: ClientListOptions): ClientList
     }
 
@@ -63,6 +64,11 @@ export const resolvers = {
         findByID: async (_, { id }) => {
             const clients = await createRepository('client').read();
             return clients.find((client) => client.id === id);
+        },
+
+        findByEmail: async (_, { email }) => {
+            const clients = await createRepository('client').read();
+            return clients.find((client) => client.email === email);
         },
 
         allClients: async (_, args) => {

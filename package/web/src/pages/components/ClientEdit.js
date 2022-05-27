@@ -1,6 +1,5 @@
 import { useQuery, useMutation } from "react-apollo";
 import gql from 'graphql-tag';
-import ReactDOM from 'react-dom';
 import {useMemo, useState, useEffect} from 'react';
 
 const CLIENT = gql`

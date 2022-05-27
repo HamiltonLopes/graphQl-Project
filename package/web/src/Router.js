@@ -5,16 +5,19 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
+import  ClientList  from './pages/components/ClientList';
 
 import Home from './pages/home/Home';
-import SignIn from './pages/login/Signin';
+import Login from './pages/login/Login';
 
 export default function Router() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/clientList" element={<ClientList/>} />
             </Routes>
         </BrowserRouter>
     );
