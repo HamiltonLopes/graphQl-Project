@@ -104,8 +104,8 @@ export default function ClientList({ onSelectClient }) {
 
 
     return (
-        <section>
-            <ul>
+        <section  Style={'background-color: rgb(69, 69, 69); color:white; min-height:100vh ;'}>
+            <ul Style={'margin:0'}>
                 {
                     clients.map((client, i) => (
                         <li key={client.id} onClick={handleSelectClient(client)}>

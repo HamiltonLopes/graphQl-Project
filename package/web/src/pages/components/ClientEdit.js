@@ -85,6 +85,7 @@ export default function ClientEdit( {clientId , setComponents}  ){
     };
 
     return (
+  
         <form onSubmit={handleSubmite}>
             <input type="text" value={values.name} onChange={handleNameChange} />
             <input type="text" value={values.email} onChange={handleEmailChange}/>

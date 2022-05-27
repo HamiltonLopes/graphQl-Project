@@ -4,21 +4,25 @@
   height: 100vh;
   align-items: center;
   justify-content: center;
+  background-color: rgb(69, 69, 69);
 }
 
 .classLogInform {
+    background-color: white;
     display: block;
     width: fit-content;
     padding: 2rem;
     margin: 0;
     box-shadow: 1px 1px 11px 12px rgba(0, 0, 0, 0.08);
     border-radius: .6rem;
-  }
+}
 
 .classLoginPassLabel{
   margin-top: 1rem;
 }
 
 .classLoginButton{
+  background-color: rgb(69, 69, 69) !important;
   margin-top: 1rem;
+  border: none !important;
 }
