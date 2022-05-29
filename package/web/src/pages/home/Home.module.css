@@ -1,17 +1,26 @@
-.classHomeContainer{
-  background-color: rgb(69, 69, 69);
-  color: white;
+.home {
+    background-color: rgb(69, 69, 69);
+
 }
 
-.classHomeH2{
+.classHomeContainer {
+    color: white;
+    min-height: 100vh;
+}
+
+.classHomeH2 {
+    font-size: 3.5rem;
     text-align: center;
     margin-top: 2rem;
+    color: #FF8C00;
 }
-.classHomeH4{
+
+.classHomeH4 {
     text-align: center;
     margin-top: 4rem;
 }
-.classHomeH1{
+
+.classHomeH1 {
     text-align: center;
     /* position: absolute; */
     /* top: 50%; */
@@ -25,37 +34,82 @@
     margin-top: 10rem;
     box-shadow: 1px 1px 11px 12px rgba(0, 0, 0, 0.08);
     border-radius: .6rem;
-    color: cadetblue;
+    color: #fafafa;
     background-color: rgba(224, 224, 224, 0.219);
 }
 
-.classHomeButton{
+.classHomeButton {
     display: block;
     margin-top: 5rem;
     margin-inline: auto;
     padding: 0.5rem;
 }
 
-.classNavWrapper{
-    width: min(62rem,100%);
+.nav {
+    background-color: rgb(69, 69, 69);
+    border-bottom: 1px solid #fafafa;
+}
+
+.classNavWrapper {
+    width: min(62rem, 100%);
     padding-inline: 2.4rem;
     margin-inline: auto;
     display: grid;
+
+
 }
 
-.classNavMenu{
+.classNavMenu {
     height: 4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    color: #fafafa;
 }
 
-.classNavMenuUl{
+.classNavMenuUl {
+    list-style-type: none;
     margin-bottom: 0;
-    padding-left: 6rem;
+    padding-left: 8rem;
+    padding-right: 3rem;
     display: flex;
     gap: 3.2rem;
+}
+
+.a {
+    color: #fafafa;
+    text-decoration: none;
+}
+
+.a:hover{
+    color: rgba(250, 250, 250, 0.6);
+
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem 1.5rem;
+
+    border: 1px solid rgb(113, 112, 112);
+    border-radius: 2rem;
+
+    background-color: rgba(113, 112, 112, 0.7);
+    font-weight: 700;
+    line-height: 1.8rem;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    color: #fafafa9f;
+}
+
+.button:hover {
+    color: rgb(255, 255, 255);
+    content: '';
+    -webkit-box-shadow: 0 0 5px 2px #fafafa, 0 0 1px 0.5px #fafafa;
+    box-shadow: 0 0 5px 2px #fafafa, 0 0 1px 0.5px #fafafa;
 }
 
 /* 
@@ -93,22 +147,7 @@ nav#navigation .menu li a:hover::after{
     width: 100%;
 }
 
-nav#navigation .menu a.button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 2.4rem;
 
-    border: 1px solid var(--primary-color);
-    border-radius: 4rem;
-
-    font-weight: 700;
-    font-size: 1.4rem;
-    line-height: 1.8rem;
-    text-transform: uppercase;
-
-    color: var(--primary-color);
-}
 
 nav#navigation .menu a.button:hover{
     background-color: var(--primary-color);

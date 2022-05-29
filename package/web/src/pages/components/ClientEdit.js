@@ -86,10 +86,10 @@ export default function ClientEdit( {clientId , setComponents}  ){
 
     return (
   
-        <form onSubmit={handleSubmite}>
+        <form Style={"display:flex; gap: 0.3rem;"}onSubmit={handleSubmite}>
             <input type="text" value={values.name} onChange={handleNameChange} />
             <input type="text" value={values.email} onChange={handleEmailChange}/>
-            <button type="submit">Salvar</button>
+            <button type="submit">Save</button>
         </form>
     );
 

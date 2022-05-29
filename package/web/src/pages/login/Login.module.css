@@ -1,14 +1,15 @@
-.teste{
+.classLogInDiv{
   display: flex;
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background-color: rgb(69, 69, 69);
 }
 
 .classLogInform {
-    background-color: white;
+    background-color: #FAFAFA;
     display: block;
     width: fit-content;
     padding: 2rem;
@@ -25,4 +26,10 @@
   background-color: rgb(69, 69, 69) !important;
   margin-top: 1rem;
   border: none !important;
+  margin-right: 1rem;
+} 
+
+.classLogInP{
+  color: #FF8C00;
+  font-size: 3.5rem;
 }

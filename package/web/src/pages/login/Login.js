@@ -32,7 +32,7 @@ export default function Login() {
   var password = null;
   const [getClientResult, clientResult] = useLazyQuery(CLIENT);
 
-  // console.log(clientResult?.data?.findByEmail, clientEmail, clientResult?.data?.findByEmail?.password);
+  //console.log(clientResult?.data?.findByEmail, clientEmail, clientResult?.data?.findByEmail?.password);
 
   useEffect(() => {
     if (clientEmail) {
@@ -61,8 +61,13 @@ export default function Login() {
     setClientEmail(inputEmail.current.value);
   }
 
+  const handleBack = () => {
+    navigate('/home');
+  }
+
   return (
-    <div className={Style.teste}>
+    <div className={Style.classLogInDiv}>
+      <h1 className={Style.classLogInP}>Login</h1>
       <Form inline className={Style.classLogInform}>
         <FormGroup className="mb-3 me-sm-2 mb-sm-0">
           <Label
@@ -97,6 +102,9 @@ export default function Login() {
         </FormGroup>
         <Button className={Style.classLoginButton} type="submit" onClick={(e) => { e.preventDefault(); handleAuthenticate(); }}>
           Submit
+        </Button>
+        <Button className={Style.classLoginButton} type="submit" onClick={(e) => { e.preventDefault(); handleBack(); }}>
+          Cancel
         </Button>
       </Form>
     </div>

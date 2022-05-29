@@ -1,0 +1,34 @@
+.container{
+    background-color: rgb(69, 69, 69); 
+}
+
+.classClientListSection{
+    color:white; 
+    min-height:100vh ;
+    padding-inline: 2.4rem;
+}
+
+.classClientListUl{
+    margin:0;
+
+}
+
+.li{
+    display: grid !important;
+    grid-template-columns: 20rem 20rem 10rem 1fr !important;
+    background-color: rgba(113, 112, 112, 0.6) !important; 
+
+
+}
+
+.liButton{
+    height: fit-content;
+    margin-right: 2rem;
+}
+.h2{
+
+    font-size: 3.5rem;
+    text-align: center;
+    margin-block: 1rem;
+    color: #FF8C00;
+}

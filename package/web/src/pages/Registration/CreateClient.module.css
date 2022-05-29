@@ -1,0 +1,39 @@
+.h{
+    text-align: center;
+    margin-block: 2rem;
+
+}
+
+.bg {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(69, 69, 69,0.6);
+}
+
+.container{
+    z-index: 5;
+    background-color: #FAFAFA;
+    display: block;
+    width: 35rem;
+    padding: 2rem;
+    margin: 0;
+    box-shadow: 1px 1px 11px 12px rgba(0, 0, 0, 0.08);
+    border-radius: .6rem;
+}
+
+.buttons{
+    display: flex;
+    margin-top: 1.5rem;
+    gap: 1.5rem;
+}
+
+.button{
+    border: none;
+}
