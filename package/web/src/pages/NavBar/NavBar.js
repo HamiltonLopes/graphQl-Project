@@ -2,6 +2,8 @@ import Style from '../home/Home.module.css';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CreateClient from '../Registration/CreateClient';
+import hclogo from '../../assets/vtex-logo.svg';
+
 
 
 export default function NavBar() {
@@ -9,6 +11,8 @@ export default function NavBar() {
     const { state } = useLocation();
     const [reg, setReg] = useState(false);
     
+    document.getElementById('body').classList.add(Style.home);
+
     const handleReg = (e) => {
         e.preventDefault();
         setReg(!reg);
@@ -21,8 +25,8 @@ export default function NavBar() {
                     <div className={Style.classNavWrapper}>
 
                         <div className={Style.classNavMenu}>
-                            <a className={Style.a} href="#home">Logo
-                            </a>
+                            <img className={Style.logo} src={hclogo} alt='logohc'/>
+                            
                             <ul className={Style.classNavMenuUl}>
                                 <li><a className={Style.a} 
                                 onClick={
@@ -32,8 +36,8 @@ export default function NavBar() {
                                     }
                                 }
                                 href="#home">Home</a></li>
-                                <li><a className={Style.a} href="#services">Services</a></li>
-                                <li><a className={Style.a} href="#about">About</a></li>
+                                <li><a className={Style.a} href="#container">Techs</a></li>
+                                <li><a className={Style.a} href="#usersList">Users List</a></li>
                                 <li><a className={Style.a} href="#testimonials">Examples</a></li>
                             </ul>
 

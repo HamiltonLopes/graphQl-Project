@@ -53,7 +53,7 @@ export default function ClientList({ onSelectClient }) {
             variables: {
                 options: {
                     take: ITEMS_PER_VIEW,
-                    // skip: nextPage(10),
+                    skip: page*ITEMS_PER_VIEW,
                     sort: {
                         sorter: SORTER,
                         sortment: SORTMENT

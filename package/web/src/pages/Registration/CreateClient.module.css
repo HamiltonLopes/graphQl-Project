@@ -1,4 +1,4 @@
-.h{
+.h {
     text-align: center;
     margin-block: 2rem;
 
@@ -14,10 +14,10 @@
     top: 0;
     left: 0;
     z-index: 1;
-    background-color: rgba(69, 69, 69,0.6);
+    background-color: rgba(69, 69, 69, 0.6);
 }
 
-.container{
+.container {
     z-index: 5;
     background-color: #FAFAFA;
     display: block;
@@ -28,12 +28,17 @@
     border-radius: .6rem;
 }
 
-.buttons{
+.buttons {
     display: flex;
     margin-top: 1.5rem;
     gap: 1.5rem;
 }
 
-.button{
+.button {
     border: none;
+}
+
+.modal {
+    overflow-x: hidden;
+    overflow-y: hidden;
 }

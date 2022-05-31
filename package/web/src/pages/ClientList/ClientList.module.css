@@ -4,20 +4,18 @@
 
 .classClientListSection{
     color:white; 
-    min-height:100vh ;
-    padding-inline: 2.4rem;
+    padding-inline: 6rem;
 }
 
 .classClientListUl{
     margin:0;
-
 }
 
 .li{
     display: grid !important;
     grid-template-columns: 20rem 20rem 10rem 1fr !important;
     background-color: rgba(113, 112, 112, 0.6) !important; 
-
+    color: #fafafa !important;
 
 }
 

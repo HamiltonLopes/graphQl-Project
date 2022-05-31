@@ -28,13 +28,13 @@ const CREATE_CLIENT = gql`
     }
 `;
 
-export default function CreateClient({setReg}) {
+export default function CreateClient({ setReg }) {
     var clickOverForm = false;
     const nav = useNavigate();
     const [REF_NAME, REF_EMAIL, REF_PASSWORD] = [0, 1, 2];
     const [createClient] = useMutation(CREATE_CLIENT);
     const formInputs = useRef([]); //.current[i]
-
+    document.getElementById('body').classList.add(Style.modal);
     const handleSubmit = () => {
         console.log(formInputs.current[REF_NAME].value);
         createClient({
@@ -47,20 +47,21 @@ export default function CreateClient({setReg}) {
 
         document.getElementById('form').reset();
         setReg(false);
+        document.getElementById('body').classList.remove(Style.modal);
         nav('/Login');
     };
 
-    const handleTest = () =>{
-        if(!clickOverForm)
+    const handleClickOnFormContainer = () => {
+        if (!clickOverForm)
             clickOverForm = !clickOverForm;
     }
 
     const handleBack = () => {
-        if(!clickOverForm){
+        if (!clickOverForm) {
+            document.getElementById('body').classList.remove(Style.modal);
             setReg(false);
-            //nav('/home',{ state: {isReg: false }});
             console.log('volta');
-        }else{
+        } else {
             clickOverForm = !clickOverForm;
         }
     }
@@ -69,7 +70,7 @@ export default function CreateClient({setReg}) {
     return (
         <>
             <div className={Style.bg} onClick={handleBack}>
-                <div className={Style.container} onClick={handleTest}>
+                <div className={Style.container} onClick={handleClickOnFormContainer}>
                     <h2 className={Style.h}>REGISTER</h2>
                     <Form id="form">
                         <FormGroup row>
